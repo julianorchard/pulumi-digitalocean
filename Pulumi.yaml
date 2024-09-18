@@ -1,0 +1,7 @@
+name: pulumi-digitalocean
+runtime: nodejs
+description: Pulumi Digital Ocean project.
+config:
+  pulumi:tags:
+    value:
+      pulumi:template: typescript

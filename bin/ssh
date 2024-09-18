@@ -1,0 +1,9 @@
+#!/usr/bin/env sh
+
+set -euf
+
+# Example using local authentication:
+export PULUMI_CONFIG_PASSPHRASE=""
+
+ssh root@"$(pulumi stack output ipv4)"
+

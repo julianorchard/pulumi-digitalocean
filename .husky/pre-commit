@@ -1,0 +1,8 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+# Prettier in TS files
+npm run lint-staged
+
+# Shellcheck in provisioning script
+npx shellcheck bin/provision.sh
