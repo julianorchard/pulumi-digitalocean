@@ -104,7 +104,6 @@ async function getKey(
   });
 }
 
-// @ts-ignore - Error here which seems like a known limitation/common error:
 export = async () => {
   const config = new pulumi.Config().requireObject<inputs>("config");
 

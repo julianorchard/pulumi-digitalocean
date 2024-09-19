@@ -5,4 +5,4 @@ set -euf
 # Example using local authentication:
 export PULUMI_CONFIG_PASSPHRASE=""
 
-ssh julian@"$(pulumi stack output ipv4)" -i $(pulumi stack output privateKeyPath)
+ssh julian@"$(pulumi stack output ipv4)" -i "$(pulumi stack output privateKeyPath)"
