@@ -111,13 +111,21 @@ export = async () => {
   const privateKey = await getKey(config.name, config.keyName);
   const privateKeyPath = sshFilePath(`${config.keyName}`);
 
+  // Default values for optional input variables:
+  const username = config.username == undefined ? "julian" : config.username;
+  const region =
+    config.region == undefined ? digitalocean.Region.FRA1 : config.region;
+  const tags = ["pulumi", "automation"].concat(
+    config.tags == undefined ? [] : config.tags,
+  );
+
   let cloudConfigFile = new Document({
     package_update: true,
     package_upgrade: true,
     timezone: "Europe/London",
     users: [
       {
-        name: config.username == undefined ? "julian" : config.username,
+        name: username,
         sudo: "ALL=(ALL) NOPASSWD:ALL",
         shell: "/bin/bash",
         lock_passwd: true,
@@ -157,17 +165,15 @@ export = async () => {
     size: digitalocean.DropletSlug.DropletC2,
     image: config.image,
     sshKeys: [privateKey],
-    region:
-      config.region == undefined ? digitalocean.Region.FRA1 : config.region,
-    tags: ["pulumi", "automation"].concat(
-      config.tags == undefined ? [] : config.tags,
-    ),
+    region: region,
+    tags: tags,
     userData: cloudInitConfig.rendered,
   });
 
   return {
-    ipv4: droplet.ipv4Address,
     cloudConfig: cloudInitConfig.rendered,
+    ipv4: droplet.ipv4Address,
     privateKeyPath: privateKeyPath,
+    username: username,
   };
 };

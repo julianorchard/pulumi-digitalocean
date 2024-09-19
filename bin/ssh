@@ -1,8 +1,21 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
-set -euf
+set -euo pipefail
 
 # Example using local authentication:
 export PULUMI_CONFIG_PASSPHRASE=""
 
-ssh julian@"$(pulumi stack output ipv4)" -i "$(pulumi stack output privateKeyPath)"
+pulumiOutput() {
+    echo "$(pulumi stack output "${1}")"
+}
+
+main() {
+    list="ipv4 username privateKeyPath"
+    for out in ${list}; do
+        declare pulumi_${out}_output="$(pulumiOutput "${out}")"
+    done
+
+    ssh "${pulumi_username_output}"@"${pulumi_ipv4_output}" -i "${pulumi_privateKeyPath_output}"
+}
+
+main
