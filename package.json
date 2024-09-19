@@ -10,9 +10,11 @@
         "typescript": "^5.0.0"
     },
     "dependencies": {
+        "@pulumi/cloudinit": "^1.4.6",
         "@pulumi/command": "^0.11.1",
         "@pulumi/digitalocean": "^4.29.0",
-        "@pulumi/pulumi": "^3.113.0"
+        "@pulumi/pulumi": "^3.113.0",
+        "yaml": "^2.5.1"
     },
     "scripts": {
         "prepare": "husky",
